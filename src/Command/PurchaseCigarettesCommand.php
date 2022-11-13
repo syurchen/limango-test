@@ -3,12 +3,14 @@
 namespace App\Command;
 
 use App\Exception\NotEnoughMoneyException;
+use App\Model\CoinCount;
+use App\Service\CoinManager;
 use App\Service\VendingManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -20,6 +22,7 @@ class PurchaseCigarettesCommand extends Command
 {
     public function __construct(
         private VendingManager $vendingManager,
+        private CoinManager $coinManager,
         string $name = null
     )
     {
@@ -51,6 +54,37 @@ class PurchaseCigarettesCommand extends Command
             return Command::FAILURE;
         }
 
+        $io->success(
+            sprintf(
+                'You bought %d packs of cigarettes for -%s€, each for -%s€',
+                $cigCount,
+                $moneyBalance - $change,
+                VendingManager::PACK_PRICE
+            )
+        );
+        $changeInCoins = $this->coinManager->representInCoins($change);
+        $this->buildChangeTable($changeInCoins, $output);
+
         return Command::SUCCESS;
+    }
+
+    /**
+     * @param CoinCount[] $changeInCoins
+     */
+    private function buildChangeTable(array $changeInCoins, OutputInterface $output): void
+    {
+        $table = new Table($output);
+        $table->setHeaders([
+            'Coins',
+            'Count'
+        ]);
+        foreach ($changeInCoins as $coinCount) {
+            $table->addRow([
+                $coinCount->getCoin()->getValue(),
+                $coinCount->getCount()
+            ]);
+        }
+
+        $table->render();
     }
 }

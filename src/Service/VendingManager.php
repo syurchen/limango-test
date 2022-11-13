@@ -6,7 +6,7 @@ use App\Exception\NotEnoughMoneyException;
 
 class VendingManager
 {
-    private const PACK_PRICE = 4.99;
+    public const PACK_PRICE = 4.99;
 
     /**
      * @throws NotEnoughMoneyException
