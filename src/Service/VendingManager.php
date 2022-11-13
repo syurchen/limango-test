@@ -14,7 +14,7 @@ class VendingManager
     public function purchase(int $amount, float $balance): float
     {
         $totalPrice = $this->calculateTotalPrice($amount);
-        $change = $balance - $totalPrice;
+        $change = round($balance - $totalPrice, 2);
         if ($change < 0) {
             throw new NotEnoughMoneyException($balance, $totalPrice);
         }
