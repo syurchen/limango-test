@@ -45,9 +45,4 @@ class CoinManager
 
         return new CoinCount($coin, $count);
     }
-
-    private function convertToCents(float $money): int
-    {
-        return $money * 100;
-    }
 }
