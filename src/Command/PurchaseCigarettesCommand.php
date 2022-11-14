@@ -24,8 +24,7 @@ class PurchaseCigarettesCommand extends Command
         private VendingManager $vendingManager,
         private CoinManager $coinManager,
         string $name = null
-    )
-    {
+    ) {
         parent::__construct($name);
     }
 
@@ -42,8 +41,10 @@ class PurchaseCigarettesCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $cigCount = (int) $input->getArgument('count');
         $moneyBalance = (float) $input->getArgument('money');
+
         if ($cigCount <= 0 || $moneyBalance <= 0) {
-            $io->error("Money and cigarette count should greater than zero");
+            $io->error('Money and cigarette count should greater than zero');
+
             return Command::FAILURE;
         }
 
@@ -51,6 +52,7 @@ class PurchaseCigarettesCommand extends Command
             $change = $this->vendingManager->purchase($cigCount, $moneyBalance);
         } catch (NotEnoughMoneyException $exception) {
             $io->error($exception->getMessage());
+
             return Command::FAILURE;
         }
 
@@ -76,12 +78,12 @@ class PurchaseCigarettesCommand extends Command
         $table = new Table($output);
         $table->setHeaders([
             'Coins',
-            'Count'
+            'Count',
         ]);
         foreach ($changeInCoins as $coinCount) {
             $table->addRow([
                 $coinCount->getCoin()->getValue(),
-                $coinCount->getCount()
+                $coinCount->getCount(),
             ]);
         }
 

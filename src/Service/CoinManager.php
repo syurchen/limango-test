@@ -20,9 +20,11 @@ class CoinManager
                 continue;
             }
             $result[] = $coinCountToAdd;
+
             if (0.0 === $money) {
                 break;
             }
+
             if ($money < 0) {
                 throw new ValueError('Money went below 0. This should not happen');
             }
@@ -34,6 +36,7 @@ class CoinManager
     private function extractCoin(float &$money, Coin $coin): ?CoinCount
     {
         $count = intval($money / $coin->getValue());
+
         if (0 === $count) {
             return null;
         }

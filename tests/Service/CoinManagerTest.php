@@ -14,7 +14,6 @@ class CoinManagerTest extends KernelTestCase
      */
     public function testConvertToCoins(float $money, array $coinCounts): void
     {
-
         /**
          * @var CoinManager $coinManager
          */
@@ -30,7 +29,7 @@ class CoinManagerTest extends KernelTestCase
                 2,
                 [
                     new CoinCount(Coin::TWO, 1),
-                ]
+                ],
             ],
             [
                 5.02,
@@ -38,7 +37,7 @@ class CoinManagerTest extends KernelTestCase
                     new CoinCount(Coin::TWO, 2),
                     new CoinCount(Coin::ONE, 1),
                     new CoinCount(Coin::TWO_CENT, 1),
-                ]
+                ],
             ],
         ];
     }

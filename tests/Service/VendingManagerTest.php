@@ -37,10 +37,10 @@ class VendingManagerTest extends KernelTestCase
     {
         return [
             [
-                50, 5, 25.05
+                50, 5, 25.05,
             ],
             [
-                10, 2, 0.02
+                10, 2, 0.02,
             ],
         ];
     }
@@ -49,10 +49,10 @@ class VendingManagerTest extends KernelTestCase
     {
         return [
             [
-                3, 5
+                3, 5,
             ],
             [
-                4, 2
+                4, 2,
             ],
         ];
     }

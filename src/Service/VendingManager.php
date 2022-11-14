@@ -15,6 +15,7 @@ class VendingManager
     {
         $totalPrice = $this->calculateTotalPrice($amount);
         $change = round($balance - $totalPrice, 2);
+
         if ($change < 0) {
             throw new NotEnoughMoneyException($balance, $totalPrice);
         }
@@ -26,5 +27,4 @@ class VendingManager
     {
         return $amount * self::PACK_PRICE;
     }
-
 }

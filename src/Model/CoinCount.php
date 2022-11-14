@@ -6,9 +6,8 @@ class CoinCount
 {
     public function __construct(
         private readonly Coin $coin,
-        private int           $count = 0
-    )
-    {
+        private int $count = 0
+    ) {
     }
 
     public function getCoin(): Coin
@@ -27,5 +26,4 @@ class CoinCount
 
         return $this;
     }
-
 }
